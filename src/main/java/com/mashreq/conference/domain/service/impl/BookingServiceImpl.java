@@ -3,6 +3,8 @@ package com.mashreq.conference.domain.service.impl;
 import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.domain.service.BookingService;
 import com.mashreq.conference.infra.config.MaintenanceConfiguration;
+import com.mashreq.conference.infra.exceptions.BookingException;
+import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
 import com.mashreq.conference.persistence.entity.Booking;
 import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import com.mashreq.conference.persistence.repository.BookingRepository;
@@ -39,12 +41,12 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking createBooking(Long roomId, BookingRequest bookingRequest) {
-        ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new EntityNotFoundException("Conference Room not found"));
+        ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new BookingException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
         validateBookingRequest(bookingRequest.getNumOfPeople(), room);
         boolean isBookingOverlapped = bookingRepository.hasOverlappingBookings(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
         log.info("Overlap booking status : {} for room id {}",isBookingOverlapped,roomId);
         if (isBookingOverlapped) {
-            throw new RuntimeException("Booking overlaps with existing bookings");
+            throw new BookingException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
         }
         Booking booking = new Booking();
         booking.setConferenceRoom(room);
@@ -55,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
     }
     private void validateBookingRequest(int numOfPeople, ConferenceRoom room) {
         if (numOfPeople <= 1 || numOfPeople > room.getMaxCapacity()) {
-            throw new RuntimeException("Number of people should be greater than 1 and less than or equal to the maximum capacity of the room"+room.getMaxCapacity());
+            throw new BookingException(ConferenceRoomErrorCode.E_NO_OF_PARTICIPANTS_EXCEEDED);
         }
     }
 

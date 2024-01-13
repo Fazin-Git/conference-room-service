@@ -2,6 +2,8 @@ package com.mashreq.conference.infra.validator;
 
 import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.infra.config.MaintenanceConfiguration;
+import com.mashreq.conference.infra.exceptions.BookingException;
+import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -27,16 +29,16 @@ public class BookingValidator implements Validator {
     public void validate(Object target, Errors errors) {
         BookingRequest bookingRequest = (BookingRequest) target;
         if (bookingRequest.getStartTime().toLocalDate().isAfter(LocalDate.now())) {
-            throw new RuntimeException("Booking can only be done for the current date");
+            throw new BookingException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
 
         if (bookingRequest.getStartTime().getMinute() % 15 != 0 || bookingRequest.getEndTime().getMinute() % 15 != 0) {
-            throw new RuntimeException("Booking should be in intervals of 15 minutes");
+            throw new BookingException(ConferenceRoomErrorCode.E_BOOKING_INTERVAL_NOT_ALLOWED);
         }
 
         // Validate maintenance time
         if(validateMaintenanceTime(bookingRequest.getStartTime(), bookingRequest.getEndTime())){
-            throw new RuntimeException("Booking cannot be done during maintenance time");
+            throw new BookingException(ConferenceRoomErrorCode.E_UNDER_MAINTENANCE_TIME);
         }
     }
     public boolean validateMaintenanceTime(LocalDateTime startTime, LocalDateTime endTime) {

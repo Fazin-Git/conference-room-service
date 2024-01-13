@@ -42,7 +42,6 @@ public class InboundBookingControllerAdapter implements BookingController {
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
     @PostMapping("/{roomId}/book-room")
     public ResponseEntity<Response<Booking>> bookRoom(@PathVariable String roomId,@Valid @RequestBody BookingRequest bookingRequest) throws Exception {
-        ;
         return ResponseEntity.ok()
                 .body(Response.<Booking>builder()
                         .data(bookingService.createBooking(Long.valueOf(roomId), bookingRequest))
