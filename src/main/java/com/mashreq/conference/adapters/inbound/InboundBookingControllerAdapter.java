@@ -1,7 +1,7 @@
 package com.mashreq.conference.adapters.inbound;
 
 import com.mashreq.conference.domain.model.BookingRequest;
-import com.mashreq.conference.domain.model.ConferenceRoom;
+import com.mashreq.conference.domain.model.ConferenceRoomReq;
 import com.mashreq.conference.domain.model.Response;
 import com.mashreq.conference.domain.model.ResponseStatus;
 import com.mashreq.conference.domain.service.BookingService;
@@ -41,7 +41,7 @@ public class InboundBookingControllerAdapter implements BookingController {
     @Operation(summary = "Book room")
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
     @PostMapping("/{roomId}/book-room")
-    public ResponseEntity<Response<Booking>> bookRoom(@PathVariable String roomId,@Valid @RequestBody BookingRequest bookingRequest) throws Exception {
+    public ResponseEntity<Response<Booking>> bookRoom(@PathVariable String roomId,@Valid @RequestBody BookingRequest bookingRequest) {
         return ResponseEntity.ok()
                 .body(Response.<Booking>builder()
                         .data(bookingService.createBooking(Long.valueOf(roomId), bookingRequest))
@@ -50,17 +50,8 @@ public class InboundBookingControllerAdapter implements BookingController {
                         .build());
     }
 
-
-    @Operation(summary = "Book room")
-    @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
-    @GetMapping("/test")
-    public ResponseEntity<String> get() {
-        return  new ResponseEntity<>(
-                "SUCCESS", HttpStatus.OK);
-    }
-
     @Override
-    public ResponseEntity<List<ConferenceRoom>> getAvailableRooms(LocalTime startTime, LocalTime endTime) {
+    public ResponseEntity<List<ConferenceRoomReq>> getAvailableRooms(LocalTime startTime, LocalTime endTime) {
         return null;
     }
     // Inject BookingService and delegate calls

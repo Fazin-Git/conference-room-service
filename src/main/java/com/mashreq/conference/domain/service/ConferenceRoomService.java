@@ -1,13 +1,15 @@
 package com.mashreq.conference.domain.service;
 
-import com.mashreq.conference.domain.model.ConferenceRoom;
+import com.mashreq.conference.domain.model.ConferenceRoomReq;
+import com.mashreq.conference.domain.model.ConferenceRoomRes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ConferenceRoomService {
-    List<ConferenceRoom> getAllRooms();
+    List<ConferenceRoomRes> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime);
 
-    ConferenceRoom getRoomById(Long roomId);
+    ConferenceRoomReq getRoomById(Long roomId);
 
     // Other methods
 }

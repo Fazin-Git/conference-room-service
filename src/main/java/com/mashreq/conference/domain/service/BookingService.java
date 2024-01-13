@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public interface BookingService {
     boolean isBookingAllowed(Long roomId, LocalDateTime startTime, LocalDateTime endTime, int numberOfPeople);
 
-    Booking createBooking(Long roomId, BookingRequest bookingRequest) throws Exception;
+    Booking createBooking(Long roomId, BookingRequest bookingRequest);
 
     // Other methods
 }

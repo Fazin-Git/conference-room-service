@@ -19,16 +19,6 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
                                           @Param("startTime") LocalDateTime startTime,
                                           @Param("endTime") LocalDateTime endTime);
 
-    /*@Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END " +
-            "FROM Booking b " +
-            "WHERE b.conferenceRoom.id = :roomId " +
-            "AND b.startTime >= :startTime " +
-            "AND b.endTime <= :endTime " +
-            "AND CAST(b.startTime AS DATE) = CAST(:startTime AS DATE)")
-    boolean hasOverlappingBookings(@Param("roomId") Long roomId,
-                                   @Param("startTime") LocalDateTime startTime,
-                                   @Param("endTime") LocalDateTime endTime);*/
-
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN TRUE ELSE FALSE END " +
             "FROM Booking b " +
             "WHERE b.conferenceRoom.id = :roomId " +
@@ -37,4 +27,11 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     boolean hasOverlappingBookings(@Param("roomId") Long roomId,
                                    @Param("startTime") LocalDateTime startTime,
                                    @Param("endTime") LocalDateTime endTime);
+
+    @Query("SELECT DISTINCT b.conferenceRoom.id " +
+            "FROM Booking b " +
+            "WHERE b.endTime > :startTime AND b.startTime < :endTime")
+    List<Long> findBookedRoomIds(@Param("startTime") LocalDateTime startTime,
+                                 @Param("endTime") LocalDateTime endTime);
+
 }
