@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    initialize: true
+    platform: h2
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 5
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+server:
+  servlet:
+    context-path: /api/
+# H2 Console configuration (optional, for development purposes)
+spring.h2:
+  console:
+    enabled: true
+    path: /h2-console
+springdoc:
+  swagger-ui:
+    enabled: true
+    disable-swagger-default-url: true
+    config-url: /api/v3/api-docs/swagger-config
+    url: /api/v3/api-docs
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.fasterxml.jackson: DEBUG
+maintenance:
+  slots:
+    - start: "09:00"
+      end: "09:15"
+    - start: "13:00"
+      end: "13:15"
+    - start: "17:00"
+      end: "17:15"

@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.mashreq.reservations.conference-room-service' is invalid and this project uses 'com.mashreq.reservations.conferenceroomservice' instead.
+* The original package name 'com.mashreq.reservations.conference-room-service' is invalid and this project uses 'com.mashreq.reservations.conference' instead.
 
 # Getting Started
 
