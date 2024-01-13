@@ -2,22 +2,17 @@ package com.mashreq.conference.domain.service.impl;
 
 import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.domain.service.BookingService;
-import com.mashreq.conference.infra.config.MaintenanceConfiguration;
-import com.mashreq.conference.infra.exceptions.BookingException;
+import com.mashreq.conference.infra.exceptions.ConferenceRoomException;
 import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
 import com.mashreq.conference.persistence.entity.Booking;
 import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import com.mashreq.conference.persistence.repository.BookingRepository;
 import com.mashreq.conference.persistence.repository.ConferenceRoomRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -41,12 +36,12 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking createBooking(Long roomId, BookingRequest bookingRequest) {
-        ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new BookingException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
+        ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
         validateBookingRequest(bookingRequest.getNumOfPeople(), room);
         boolean isBookingOverlapped = bookingRepository.hasOverlappingBookings(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
         log.info("Overlap booking status : {} for room id {}",isBookingOverlapped,roomId);
         if (isBookingOverlapped) {
-            throw new BookingException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
         }
         Booking booking = new Booking();
         booking.setConferenceRoom(room);
@@ -57,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
     }
     private void validateBookingRequest(int numOfPeople, ConferenceRoom room) {
         if (numOfPeople <= 1 || numOfPeople > room.getMaxCapacity()) {
-            throw new BookingException(ConferenceRoomErrorCode.E_NO_OF_PARTICIPANTS_EXCEEDED);
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_NO_OF_PARTICIPANTS_EXCEEDED);
         }
     }
 

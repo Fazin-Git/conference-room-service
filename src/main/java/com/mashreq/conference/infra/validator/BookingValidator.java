@@ -2,7 +2,7 @@ package com.mashreq.conference.infra.validator;
 
 import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.infra.config.MaintenanceConfiguration;
-import com.mashreq.conference.infra.exceptions.BookingException;
+import com.mashreq.conference.infra.exceptions.ConferenceRoomException;
 import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,16 +29,16 @@ public class BookingValidator implements Validator {
     public void validate(Object target, Errors errors) {
         BookingRequest bookingRequest = (BookingRequest) target;
         if (bookingRequest.getStartTime().toLocalDate().isAfter(LocalDate.now())) {
-            throw new BookingException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
 
         if (bookingRequest.getStartTime().getMinute() % 15 != 0 || bookingRequest.getEndTime().getMinute() % 15 != 0) {
-            throw new BookingException(ConferenceRoomErrorCode.E_BOOKING_INTERVAL_NOT_ALLOWED);
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_INTERVAL_NOT_ALLOWED);
         }
 
         // Validate maintenance time
         if(validateMaintenanceTime(bookingRequest.getStartTime(), bookingRequest.getEndTime())){
-            throw new BookingException(ConferenceRoomErrorCode.E_UNDER_MAINTENANCE_TIME);
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_UNDER_MAINTENANCE_TIME);
         }
     }
     public boolean validateMaintenanceTime(LocalDateTime startTime, LocalDateTime endTime) {

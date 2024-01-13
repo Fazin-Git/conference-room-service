@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @AllArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(BookingException.class)
-    ResponseEntity<BookingErrorResponse> smeGlobalException(BookingException exception) {
+    @ExceptionHandler(ConferenceRoomException.class)
+    ResponseEntity<BookingErrorResponse> smeGlobalException(ConferenceRoomException exception) {
         BookingErrorResponse bookingErrorResponse = new BookingErrorResponse();
         bookingErrorResponse.setData(new ErrorData(exception.getErrorCode(), exception.getMessage(), exception.getErrorDetails()));
         bookingErrorResponse.setStatus(ResponseStatus.ERROR);
