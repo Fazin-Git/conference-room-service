@@ -1,6 +1,6 @@
 package com.mashreq.conference.adapters.outbound.web;
 
-import com.mashreq.conference.domain.model.BookingDTO;
+import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.domain.model.ConferenceRoom;
 import com.mashreq.conference.ports.inbound.BookingController;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class OutBookingControllerAdapter implements BookingController {
 
     @Override
-    public ResponseEntity<?> bookRoom(String roomId, BookingDTO bookingDTO) {
+    public ResponseEntity<?> bookRoom(String roomId, BookingRequest bookingRequest) {
         return null;
     }
 

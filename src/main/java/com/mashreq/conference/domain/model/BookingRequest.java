@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BookingDTO{
+public class BookingRequest {
     private Long roomId;
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
