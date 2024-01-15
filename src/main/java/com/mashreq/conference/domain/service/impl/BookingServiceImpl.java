@@ -2,6 +2,7 @@ package com.mashreq.conference.domain.service.impl;
 
 import com.mashreq.conference.adapters.outbound.persistence.BookingRepositoryAdapter;
 import com.mashreq.conference.domain.model.BookingRequest;
+import com.mashreq.conference.domain.model.BookingResponse;
 import com.mashreq.conference.domain.service.BookingService;
 import com.mashreq.conference.infra.exceptions.ConferenceRoomException;
 import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
@@ -27,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking createBooking(Long roomId, BookingRequest bookingRequest) {
+    public BookingResponse createBooking(Long roomId, BookingRequest bookingRequest) {
         ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
         validateBookingRequest(bookingRequest.getNumOfPeople(), room);
         boolean isBookingOverlapped = bookingRepositoryAdapter.hasOverlappingBookings(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
@@ -35,7 +36,7 @@ public class BookingServiceImpl implements BookingService {
         if (isBookingOverlapped) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
         }
-        return bookingRepositoryAdapter.save(setBookingEntity(bookingRequest, room));
+        return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
     }
 
     private Booking setBookingEntity(BookingRequest bookingRequest, ConferenceRoom room) {

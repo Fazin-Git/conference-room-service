@@ -21,10 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -32,7 +29,7 @@ import java.util.LinkedHashMap;
 @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {ConferenceRoomServiceApplication.class})
 @ExtendWith(MockitoExtension.class)
-public class BaseControllerTest {
+class BaseControllerTest {
     @Autowired
     public
     MockMvc mockMvc;
