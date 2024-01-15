@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Fasin Muhammed
+      changes:
+        - sqlFile:
+            path: changelog/migration/v1-initial-schema.sql
