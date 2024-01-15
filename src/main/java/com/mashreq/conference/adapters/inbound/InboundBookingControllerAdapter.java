@@ -1,8 +1,6 @@
 package com.mashreq.conference.adapters.inbound;
 
-import com.mashreq.conference.domain.model.BookingRequest;
-import com.mashreq.conference.domain.model.ConferenceRoomReq;
-import com.mashreq.conference.domain.model.Response;
+import com.mashreq.conference.domain.model.*;
 import com.mashreq.conference.domain.model.ResponseStatus;
 import com.mashreq.conference.domain.service.BookingService;
 import com.mashreq.conference.infra.validator.BookingValidator;
@@ -41,9 +39,9 @@ public class InboundBookingControllerAdapter implements BookingController {
     @Operation(summary = "Book room")
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
     @PostMapping("/{roomId}/book-room")
-    public ResponseEntity<Response<Booking>> bookRoom(@PathVariable String roomId,@Valid @RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<Response<BookingResponse>> bookRoom(@PathVariable String roomId, @Valid @RequestBody BookingRequest bookingRequest) {
         return ResponseEntity.ok()
-                .body(Response.<Booking>builder()
+                .body(Response.<BookingResponse>builder()
                         .data(bookingService.createBooking(Long.valueOf(roomId), bookingRequest))
                         .message("Room booked successfully.")
                         .status(ResponseStatus.SUCCESS)
