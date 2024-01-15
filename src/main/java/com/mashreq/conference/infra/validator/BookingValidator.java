@@ -28,7 +28,8 @@ public class BookingValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         BookingRequest bookingRequest = (BookingRequest) target;
-        if (bookingRequest.getStartTime().toLocalDate().isAfter(LocalDate.now())) {
+        if (bookingRequest.getStartTime().toLocalDate().isAfter(LocalDate.now()) ||
+                bookingRequest.getStartTime().toLocalDate().isBefore(LocalDate.now())) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
 

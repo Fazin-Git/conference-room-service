@@ -43,11 +43,11 @@ public class BaseControllerTest {
     @DisplayName("Create booking")
     @SneakyThrows
     @Order(1)
-    void testSubmitSuccess() {
+    void testBookingSuccess() {
         BookingRequest bookingRequest = new BookingRequest();
         bookingRequest.setNumOfPeople(7);
-        bookingRequest.setStartTime(LocalDateTime.of(2024,1,15,16,0));
-        bookingRequest.setEndTime(LocalDateTime.of(2024,1,15,16,30));
+        bookingRequest.setStartTime(LocalDateTime.now().withMinute(15));
+        bookingRequest.setEndTime(LocalDateTime.now().withMinute(30));
         bookingRequest.setRoomId(2L);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .post(String.format("/conference-rooms/%s/book-room", 2))
