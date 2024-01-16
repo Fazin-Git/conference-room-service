@@ -1,13 +1,11 @@
 package com.mashreq.conference.domain.service.impl;
 
-import com.mashreq.conference.adapters.outbound.persistence.BookingRepositoryAdapter;
 import com.mashreq.conference.adapters.outbound.persistence.ConferenceRoomRepositoryAdapter;
 import com.mashreq.conference.domain.model.BookingRequest;
 import com.mashreq.conference.domain.model.ConferenceRoomReq;
 import com.mashreq.conference.domain.model.ConferenceRoomRes;
 import com.mashreq.conference.domain.service.ConferenceRoomService;
 import com.mashreq.conference.infra.validator.BookingValidator;
-import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;

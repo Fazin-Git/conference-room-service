@@ -12,6 +12,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+app:
+  security:
+    jwt-key: ${JWT_KEY:2dae84f846e4f4b158a8d26681707f4338495bc7ab68151d7f7679cc5e56202dd3da0d356da007a7c28cb0b780418f4f3246769972d6feaa8f610c7d1e7ecf6a}
+    validity-customer: ${JWT_TIMEOUT:1800}
+    permit-uris: ${SPRING_SECURITY_PERMIT_URIS:/actuator/health,/swagger-ui/**,/v3/api-docs/**,/swagger-resources/**,/auth/login/**,/auth/sign-up/**,/h2-console/**}
 server:
   servlet:
     context-path: /api/

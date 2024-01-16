@@ -1,6 +1,5 @@
 package com.mashreq.conference.adapters.inbound;
 
-import com.mashreq.conference.domain.model.ConferenceRoomReq;
 import com.mashreq.conference.domain.model.ConferenceRoomRes;
 import com.mashreq.conference.domain.service.ConferenceRoomService;
 import com.mashreq.conference.ports.inbound.ConferenceRoomController;
@@ -41,6 +40,4 @@ public class InboundConferenceRoomControllerAdapter implements ConferenceRoomCon
         List<ConferenceRoomRes> rooms = conferenceRoomService.getAllRooms();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
-
-    // Inject ConferenceRoomService and delegate calls
 }

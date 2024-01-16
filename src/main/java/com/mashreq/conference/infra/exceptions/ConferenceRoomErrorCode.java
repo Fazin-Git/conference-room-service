@@ -18,7 +18,11 @@ public enum ConferenceRoomErrorCode  {
     E_NO_OF_PARTICIPANTS_EXCEEDED("E_NO_OF_PARTICIPANTS_EXCEEDED", "Number of people should be greater than 1 and less than or equal to the maximum capacity of the room", HttpStatus.BAD_REQUEST),
     E_MEETING_ROOM_NOT_FOUND("E_MEETING_ROOM_NOT_FOUND", "Conference Room not found.", HttpStatus.INTERNAL_SERVER_ERROR),
 
-    E_INVALID_ARGUMENTS("E_INVALID_ARGUMENTS", "Invalid method arguments ", HttpStatus.BAD_REQUEST);
+    E_INVALID_ARGUMENTS("E_INVALID_ARGUMENTS", "Invalid method arguments ", HttpStatus.BAD_REQUEST),
+    E_INVALID_CREDENTIALS("E_INVALID_CREDENTIALS", "Invalid credentials ", HttpStatus.UNAUTHORIZED),
+
+    E_USER_ALREADY_PRESENT("E_USER_ALREADY_PRESENT", "User exists already ", HttpStatus.UNAUTHORIZED),
+    E_USER_DO_NOT_EXIST("E_USER_DO_NOT_EXIST", "User does not exist ", HttpStatus.UNAUTHORIZED);
 
     private final String errorCode;
     private final String errorMessage;
