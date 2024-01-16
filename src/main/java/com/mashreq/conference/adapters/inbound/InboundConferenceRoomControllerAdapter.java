@@ -34,11 +34,12 @@ public class InboundConferenceRoomControllerAdapter implements ConferenceRoomCon
     }
 
     @Override
-    @Operation(summary = "Get conference room details")
+    @Operation(summary = "Get all conference rooms")
     @ApiResponse(responseCode = "200", description = "conference room fetched successfully.", content = @Content(mediaType = "application/json"))
-    @GetMapping("/{roomId}")
-    public ResponseEntity<ConferenceRoomReq> getRoomById(Long roomId) {
-        return null;
+    @GetMapping
+    public ResponseEntity<List<ConferenceRoomRes>> getAllRooms() {
+        List<ConferenceRoomRes> rooms = conferenceRoomService.getAllRooms();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 
     // Inject ConferenceRoomService and delegate calls

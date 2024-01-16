@@ -11,11 +11,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -60,8 +60,10 @@ public class InboundBookingControllerAdapter implements BookingController {
     }
 
     @Override
-    public ResponseEntity<List<ConferenceRoomReq>> getAvailableRooms(LocalTime startTime, LocalTime endTime) {
-        return null;
+    @Operation(summary = "Get all bookings for the day")
+    @ApiResponse(responseCode = "200", description = "All bookings fetched successfully.", content = @Content(mediaType = "application/json"))
+    @GetMapping("/current-bookings")
+    public ResponseEntity<List<BookingResponse>> getAllBookings() {
+        return new ResponseEntity<>(bookingService.getAllBookings(), HttpStatus.OK);
     }
-    // Inject BookingService and delegate calls
 }

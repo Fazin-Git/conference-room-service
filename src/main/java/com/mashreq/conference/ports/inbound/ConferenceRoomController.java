@@ -10,7 +10,7 @@ import java.util.List;
 public interface ConferenceRoomController {
     ResponseEntity<List<ConferenceRoomRes>> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime);
 
-    ResponseEntity<ConferenceRoomReq> getRoomById(Long roomId);
+    ResponseEntity<List<ConferenceRoomRes>> getAllRooms();
 
     // Other methods
 }

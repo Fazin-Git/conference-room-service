@@ -11,5 +11,7 @@ public interface ConferenceRoomService {
 
     ConferenceRoomReq getRoomById(Long roomId);
 
+    List<ConferenceRoomRes> getAllRooms();
+
     // Other methods
 }

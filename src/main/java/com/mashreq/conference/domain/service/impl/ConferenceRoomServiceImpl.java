@@ -20,8 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ConferenceRoomServiceImpl implements ConferenceRoomService {
 
-    private final BookingRepositoryAdapter bookingRepositoryAdapter;
-
     private final ConferenceRoomRepositoryAdapter conferenceRoomRepositoryAdapter;
 
     private final BookingValidator bookingValidator;
@@ -43,5 +41,10 @@ public class ConferenceRoomServiceImpl implements ConferenceRoomService {
     @Override
     public ConferenceRoomReq getRoomById(Long roomId) {
         return null;
+    }
+
+    @Override
+    public List<ConferenceRoomRes> getAllRooms() {
+        return conferenceRoomRepositoryAdapter.findAll();
     }
 }

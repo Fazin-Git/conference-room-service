@@ -2,7 +2,6 @@ package com.mashreq.conference.adapters.outbound.persistence;
 
 import com.mashreq.conference.domain.model.BookingResponse;
 import com.mashreq.conference.persistence.entity.Booking;
-import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import com.mashreq.conference.persistence.repository.BookingRepository;
 import com.mashreq.conference.ports.outbound.IBookingRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,17 +10,14 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class BookingRepositoryAdapter implements IBookingRepository {
     private final BookingRepository bookingRepository;
 
-    public List<BookingResponse> findOverlappingBookings(Long roomId, LocalDateTime startTime, LocalDateTime endTime){
-        return bookingRepository.findOverlappingBookings(roomId,startTime,endTime)
-                .stream()
-                .map(this::toDomainBooking).collect(Collectors.toList());
+    public List<BookingResponse> findAllBookingsForToday(LocalDateTime startOfDay,LocalDateTime nextDayDateTime){
+         return bookingRepository.findAllBookingsForToday(startOfDay,nextDayDateTime).stream().map(this::toDomainBooking).toList();
     }
 
     public boolean hasOverlappingBookings(Long roomId, LocalDateTime startTime, LocalDateTime endTime){

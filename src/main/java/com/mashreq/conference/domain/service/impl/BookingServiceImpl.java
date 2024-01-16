@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +51,14 @@ public class BookingServiceImpl implements BookingService {
         validateBookingRequest(bookingRequest.getNumOfPeople(), room);
         checkForOverlappedBooking(room.getId(), bookingRequest);
         return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
+    }
+
+    @Override
+    public List<BookingResponse> getAllBookings() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime nextDayDateTime = currentDateTime.plusDays(1);
+        //This approach eliminates the date truncation and directly compares the timestamp range.
+        return bookingRepositoryAdapter.findAllBookingsForToday(currentDateTime,nextDayDateTime);
     }
 
     private Booking setBookingEntity(BookingRequest bookingRequest, ConferenceRoom room) {
