@@ -14,3 +14,12 @@ CREATE TABLE booking (
     updated_on TIMESTAMP NOT NULL,
     FOREIGN KEY (conference_room_id) REFERENCES conference_room(id)
 );
+
+CREATE TABLE user_details (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_on TIMESTAMP NOT NULL,
+    updated_on TIMESTAMP NOT NULL
+);
