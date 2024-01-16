@@ -10,5 +10,7 @@ public interface BookingService {
 
     BookingResponse createBooking(Long roomId, BookingRequest bookingRequest);
 
+    BookingResponse bookRoomByNumberOfParticipants(BookingRequest bookingRequest);
+
     // Other methods
 }

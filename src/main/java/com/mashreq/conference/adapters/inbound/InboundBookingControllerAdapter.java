@@ -4,7 +4,6 @@ import com.mashreq.conference.domain.model.*;
 import com.mashreq.conference.domain.model.ResponseStatus;
 import com.mashreq.conference.domain.service.BookingService;
 import com.mashreq.conference.infra.validator.BookingValidator;
-import com.mashreq.conference.persistence.entity.Booking;
 import com.mashreq.conference.ports.inbound.BookingController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +34,26 @@ public class InboundBookingControllerAdapter implements BookingController {
     }
 
     @Override
-    @Operation(summary = "Book room")
+    @Operation(summary = "Book room by passing room id")
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
     @PostMapping("/{roomId}/book-room")
-    public ResponseEntity<Response<BookingResponse>> bookRoom(@PathVariable String roomId, @Valid @RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<Response<BookingResponse>> bookRoomById(@PathVariable String roomId, @Valid @RequestBody BookingRequest bookingRequest) {
         return ResponseEntity.ok()
                 .body(Response.<BookingResponse>builder()
                         .data(bookingService.createBooking(Long.valueOf(roomId), bookingRequest))
+                        .message("Room booked successfully.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
+    }
+
+    @Override
+    @Operation(summary = "Find and book room by number of people")
+    @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
+    @PostMapping("/book-room")
+    public ResponseEntity<Response<BookingResponse>> bookRoomByNumberOfParticipants(@Valid @RequestBody BookingRequest bookingRequest) {
+        return ResponseEntity.ok()
+                .body(Response.<BookingResponse>builder()
+                        .data(bookingService.bookRoomByNumberOfParticipants(bookingRequest))
                         .message("Room booked successfully.")
                         .status(ResponseStatus.SUCCESS)
                         .build());

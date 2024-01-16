@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,11 +32,24 @@ public class BookingServiceImpl implements BookingService {
     public BookingResponse createBooking(Long roomId, BookingRequest bookingRequest) {
         ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
         validateBookingRequest(bookingRequest.getNumOfPeople(), room);
+        checkForOverlappedBooking(roomId, bookingRequest);
+        return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
+    }
+
+    private void checkForOverlappedBooking(Long roomId, BookingRequest bookingRequest) {
         boolean isBookingOverlapped = bookingRepositoryAdapter.hasOverlappingBookings(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
-        log.info("Overlap booking status : {} for room id {}",isBookingOverlapped,roomId);
+        log.info("Overlap booking status : {} for room id {}",isBookingOverlapped, roomId);
         if (isBookingOverlapped) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
         }
+    }
+
+    @Override
+    public BookingResponse bookRoomByNumberOfParticipants(BookingRequest bookingRequest) {
+        ConferenceRoom room = conferenceRoomRepository.findAllByMaxCapacityGreaterThanEqualOrderByMaxCapacityAsc(bookingRequest.getNumOfPeople())
+                .stream().findFirst().orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
+        validateBookingRequest(bookingRequest.getNumOfPeople(), room);
+        checkForOverlappedBooking(room.getId(), bookingRequest);
         return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
     }
 

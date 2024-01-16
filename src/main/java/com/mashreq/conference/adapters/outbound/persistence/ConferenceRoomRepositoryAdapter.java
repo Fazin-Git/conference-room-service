@@ -6,8 +6,8 @@ import com.mashreq.conference.persistence.repository.ConferenceRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class ConferenceRoomRepositoryAdapter implements com.mashreq.conference.p
     public List<ConferenceRoomRes> findAll() {
         return conferenceRoomRepository.findAll().stream()
                 .map(this::convertToDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
     private ConferenceRoomRes convertToDomain(ConferenceRoom conferenceRoom) {
         return ConferenceRoomRes.builder()
@@ -27,4 +27,9 @@ public class ConferenceRoomRepositoryAdapter implements com.mashreq.conference.p
                 .maxCapacity(conferenceRoom.getMaxCapacity()).build();
     }
 
+    @Override
+    public List<ConferenceRoomRes> findAvailableRoomsForDay(LocalDateTime startTime, LocalDateTime endTime) {
+        return conferenceRoomRepository.findAvailableRoomsForDay(startTime,endTime)
+                .stream().map(this::convertToDomain).toList();
+    }
 }

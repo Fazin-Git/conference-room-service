@@ -2,6 +2,7 @@ package com.mashreq.conference.adapters.outbound.persistence;
 
 import com.mashreq.conference.domain.model.BookingResponse;
 import com.mashreq.conference.persistence.entity.Booking;
+import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import com.mashreq.conference.persistence.repository.BookingRepository;
 import com.mashreq.conference.ports.outbound.IBookingRepository;
 import lombok.RequiredArgsConstructor;

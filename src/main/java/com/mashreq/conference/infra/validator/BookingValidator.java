@@ -33,6 +33,10 @@ public class BookingValidator implements Validator {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
 
+        if (bookingRequest.getEndTime().isBefore(LocalDateTime.now())){
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_PAST_TIME_NOT_ALLOWED);
+        }
+
         if (bookingRequest.getStartTime().getMinute() % 15 != 0 || bookingRequest.getEndTime().getMinute() % 15 != 0) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_INTERVAL_NOT_ALLOWED);
         }
