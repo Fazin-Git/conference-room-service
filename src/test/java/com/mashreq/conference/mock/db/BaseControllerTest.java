@@ -2,9 +2,8 @@ package com.mashreq.conference.mock.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashreq.conference.ConferenceRoomServiceApplication;
-import com.mashreq.conference.domain.model.BookingRequest;
-import com.mashreq.conference.domain.model.Response;
-import com.mashreq.conference.domain.model.ResponseStatus;
+import com.mashreq.conference.domain.model.*;
+import com.mashreq.conference.domain.service.impl.UserService;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -36,6 +35,9 @@ class BaseControllerTest {
 
     @Autowired
     public ObjectMapper objectMapper;
+
+    @Autowired
+    public UserService userService;
     @Test
     @DisplayName("Create booking")
     @SneakyThrows
@@ -46,10 +48,13 @@ class BaseControllerTest {
         bookingRequest.setStartTime(LocalDateTime.now().withMinute(15));
         bookingRequest.setEndTime(LocalDateTime.now().withMinute(30));
         bookingRequest.setRoomId(2L);
+        userService.signup(new SignupRequest("Fasin","fasinmu@mashreq.com","12345"));
+        LoginResponse login = userService.login(new LoginRequest("fasinmu@mashreq.com", "12345"));
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .post(String.format("/conference-rooms/%s/book-room", 2))
                 .content(objectMapper.writeValueAsString(bookingRequest))
                 .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + login.token())
                 .accept(MediaType.APPLICATION_JSON)).andReturn();
 
         Response<String> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Response.class);

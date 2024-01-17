@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/conference-rooms")
 @RequiredArgsConstructor
-public class InboundConferenceRoomControllerAdapter implements ConferenceRoomController {
+public class ConferenceRoomControllerAdapter implements ConferenceRoomController {
 
     private final ConferenceRoomService conferenceRoomService;
 

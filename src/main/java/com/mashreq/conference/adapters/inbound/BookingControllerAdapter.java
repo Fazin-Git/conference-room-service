@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/conference-rooms")
 @RequiredArgsConstructor
 @Slf4j
-public class InboundBookingControllerAdapter implements BookingController {
+public class BookingControllerAdapter implements BookingController {
 
     private final BookingService bookingService;
 
