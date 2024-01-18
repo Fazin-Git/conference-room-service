@@ -1,4 +1,4 @@
-package com.mashreq.conference.infra.config;
+package com.mashreq.conference.infra.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -1,4 +1,4 @@
-package com.mashreq.conference.infra.config;
+package com.mashreq.conference.infra.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashreq.conference.domain.service.impl.UserDetailsServiceImpl;

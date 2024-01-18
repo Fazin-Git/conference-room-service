@@ -1,5 +1,6 @@
 package com.mashreq.conference.domain.model;
 
+import com.mashreq.conference.infra.validator.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,7 +12,7 @@ public record LoginRequest(
     String email,
 
     @NotBlank(message = "Password cannot be blank")
-    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
+    @Password
     String password) {
 
 }

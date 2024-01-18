@@ -32,6 +32,9 @@ public class BookingValidator implements Validator {
                 bookingRequest.startTime().toLocalDate().isBefore(LocalDate.now())) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
+        if (bookingRequest.startTime().isAfter(bookingRequest.endTime())) {
+            throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_TIME);
+        }
 
         if (bookingRequest.endTime().isBefore(LocalDateTime.now())){
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_PAST_TIME_NOT_ALLOWED);

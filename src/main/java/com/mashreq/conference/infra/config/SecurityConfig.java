@@ -1,6 +1,8 @@
 package com.mashreq.conference.infra.config;
 
 import com.mashreq.conference.domain.service.impl.UserDetailsServiceImpl;
+import com.mashreq.conference.infra.security.JwtAuthFilter;
+import com.mashreq.conference.infra.security.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +45,7 @@ public class SecurityConfig {
     httpSecurity.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
     httpSecurity.httpBasic(requests -> requests.authenticationEntryPoint(jwtAuthenticationEntryPoint));
     httpSecurity.sessionManagement(request -> request.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-    //Allowed deprecated, As for H2 console needs frame-options to work.
+    //Allowed deprecated, As H2 console needs frame-options to work.
     httpSecurity.headers().frameOptions().disable();
     return httpSecurity.build();
   }

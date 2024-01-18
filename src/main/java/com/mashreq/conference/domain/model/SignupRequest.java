@@ -1,19 +1,22 @@
 package com.mashreq.conference.domain.model;
 
+import com.mashreq.conference.infra.validator.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import lombok.*;
 
-public record SignupRequest(
+@Getter
+@Setter
+@AllArgsConstructor
+public class SignupRequest{
     @NotBlank(message = "Name cannot be blank")
-    String name,
+    private String name;
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be blank")
-    String email,
+    private String email;
 
     @NotBlank(message = "Password cannot be blank")
-    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
-    String password) {
-
+    @Password
+    private String password;
 }

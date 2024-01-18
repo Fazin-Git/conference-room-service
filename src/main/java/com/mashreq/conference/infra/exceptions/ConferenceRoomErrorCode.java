@@ -10,6 +10,7 @@ public enum ConferenceRoomErrorCode  {
     E_INTERNAL_SERVER_ERROR("E_INTERNAL_SERVER_ERROR", "Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR),//500
     E_REQUEST_PARAMETER_MISSING("E_REQUEST_PARAMETER_MISSING", "Missing request parameter ", HttpStatus.NOT_ACCEPTABLE),
     E_INVALID_BOOKING_DATE("E_INVALID_BOOKING_DATE", "Booking can only be done for the current date", HttpStatus.BAD_REQUEST),
+    E_INVALID_BOOKING_TIME("E_INVALID_BOOKING_TIME", "Provide a valid time for the booking", HttpStatus.BAD_REQUEST),
 
     E_PAST_TIME_NOT_ALLOWED("E_PAST_TIME_NOT_ALLOWED", "Please select a future time for the booking", HttpStatus.BAD_REQUEST),
     E_BOOKING_INTERVAL_NOT_ALLOWED("E_BOOKING_INTERVAL_NOT_ALLOWED", "Booking should be in intervals of 15 minutes", HttpStatus.BAD_REQUEST),
