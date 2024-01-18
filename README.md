@@ -16,7 +16,8 @@ Conference room booking service for company’s internal use.
 - Below API's are available to fulfil the current scope
      - **Swagger** http://localhost:8080/api/swagger-ui/index.html
 
-##### Technologies integrated in the service
+##### Technologies and design pattern integrated in the service
+- Hexagonal Pattern
 - JWT Authentication using Spring security.
 - Rate limiter using resiliency4j
 - Mock DB test cases
@@ -26,7 +27,18 @@ Conference room booking service for company’s internal use.
 - H2 Database
 - Liquibase
 ### Project Structure
-```bash
+Project is built using **Hexagonal** design pattern.
+Domain objects are the lifeblood of an application.They’re pure Java and provide an API for use cases to operate on them.
+Because domain objects have no dependencies on other layers of the application, changes in other layers don’t affect them. 
+They can evolve free of dependencies. 
+This is a prime example of the Single Responsibility Principle (the “S” in “SOLID”)
+
+ - **domain**: Contains the core domain entities and business logic.
+ - **inward**: Defines the input port (use case interface).
+ - **outward**: Defines the output port (repository interface).
+ - **adapter**: Adapters for both inward and outward. In this example, 
+   there's a web adapter for handling HTTP requests and an in-memory repository for storing bookings.
+```bash![img.png](img.png)
 conference-room-service
 src
    |-- com/mashreq
