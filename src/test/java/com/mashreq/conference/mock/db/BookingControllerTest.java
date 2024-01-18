@@ -5,9 +5,7 @@ import com.mashreq.conference.domain.model.*;
 import com.mashreq.conference.domain.service.impl.UserService;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +29,8 @@ class BookingControllerTest extends BaseControllerTest{
     public UserService userService;
     @Test
     @DisplayName("Create booking by passing start,end time,room id and number of people attending ")
-    @SneakyThrows
     @Order(1)
+    @SneakyThrows
     void testBookingSuccess() {
         BookingRequest bookingRequest = new BookingRequest(2L,LocalDateTime.now().plusHours(1).withMinute(15),LocalDateTime.now().plusHours(1).withMinute(30),7);
         userService.signup(new SignupRequest("Fasin6","fasin6@mashreq.com","12345"));
@@ -50,8 +48,8 @@ class BookingControllerTest extends BaseControllerTest{
 
     @Test
     @DisplayName("Create booking by passing start,end time and number of people attending ")
-    @SneakyThrows
     @Order(2)
+    @SneakyThrows
     void testBookingSuccessByNumberOfParticipants() {
         BookingRequest bookingRequest = BookingRequest.builder()
                 .startTime(LocalDateTime.now().plusHours(2).withMinute(15))

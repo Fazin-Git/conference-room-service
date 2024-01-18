@@ -8,9 +8,7 @@ import com.mashreq.conference.domain.model.ResponseStatus;
 import com.mashreq.conference.domain.model.SignupRequest;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
@@ -58,7 +56,9 @@ class LoginControllerTest extends BaseControllerTest {
         Assertions.assertThat(response.getStatus()).isEqualTo(ResponseStatus.SUCCESS);
     }
 
-    @Test
+    //@Test
+    //Enable Rate limit test case only for testing since test case files execution is in parallel and junit doesn't support class ordering.
+    //Rate limiting should be tested using Jmeter.
     void rateLimitTest() {
         RuntimeException thrown = assertThrows(
                 RuntimeException.class,
