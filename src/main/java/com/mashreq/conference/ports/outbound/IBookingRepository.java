@@ -8,6 +8,4 @@ import java.util.List;
 public interface IBookingRepository {
     List<BookingResponse> findAllBookingsForToday(LocalDateTime startOfDay,LocalDateTime endOfDay);
     boolean hasOverlappingBookings(Long roomId,LocalDateTime startTime,LocalDateTime endTime);
-    List<Long> findBookedRoomIds(LocalDateTime startTime, LocalDateTime endTime);
-
 }

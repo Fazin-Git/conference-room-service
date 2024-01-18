@@ -36,14 +36,14 @@ public class UserService {
   @RateLimiter(name = "default")
   @Transactional
   public void signup(SignupRequest request) {
-    String email = request.getEmail();
+    String email = request.email();
     Optional<User> existingUser = repository.findByEmail(email).map(toDomain());
     if (existingUser.isPresent()) {
       throw new ConferenceRoomException(ConferenceRoomErrorCode.E_USER_ALREADY_PRESENT);
     }
-    String hashedPassword = passwordEncoder.encode(request.getPassword());
+    String hashedPassword = passwordEncoder.encode(request.password());
     com.mashreq.conference.persistence.entity.User user = new com.mashreq.conference.persistence.entity.User();
-    user.setUsername(request.getName());
+    user.setUsername(request.name());
     user.setEmail(email);
     user.setPassword(hashedPassword);
     log.info("Sign-up");

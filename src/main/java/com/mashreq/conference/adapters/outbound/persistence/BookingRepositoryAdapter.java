@@ -24,11 +24,6 @@ public class BookingRepositoryAdapter implements IBookingRepository {
         return bookingRepository.hasOverlappingBookings(roomId,startTime,endTime);
     }
 
-    @Override
-    public List<Long> findBookedRoomIds(LocalDateTime startTime, LocalDateTime endTime) {
-        return bookingRepository.findBookedRoomIds(startTime,endTime);
-    }
-
     public BookingResponse saveBooking(Booking booking){
         return Optional.of(bookingRepository.save(booking)).map(this::toDomainBooking).orElse(null);
     }

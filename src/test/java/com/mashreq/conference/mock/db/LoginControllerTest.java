@@ -30,7 +30,7 @@ class LoginControllerTest extends BaseControllerTest {
     @SneakyThrows
     @Order(1)
     void signUpTest() {
-        SignupRequest signupRequest = new SignupRequest("Fasin4","fasin4@mashreq.com","12345");
+        SignupRequest signupRequest = new SignupRequest("Fasin4","fasin4@mashreq.com","Mashreq@123");
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .post("/auth/sign-up")
                 .content(objectMapper.writeValueAsString(signupRequest))
@@ -45,7 +45,7 @@ class LoginControllerTest extends BaseControllerTest {
     @SneakyThrows
     @Order(2)
     void LoginTest() {
-        LoginRequest loginRequest = new LoginRequest("fasin4@mashreq.com", "12345");
+        LoginRequest loginRequest = new LoginRequest("fasin4@mashreq.com", "Mashreq@123");
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .post("/auth/login")
                 .content(objectMapper.writeValueAsString(loginRequest))
@@ -65,7 +65,7 @@ class LoginControllerTest extends BaseControllerTest {
                 () -> IntStream.rangeClosed(1, 100)
                         .parallel()
                         .forEach(i -> {
-                            SignupRequest signupRequest = new SignupRequest("Fasin4"+i,"fasin4@mashreq.com"+i,"12345");
+                            SignupRequest signupRequest = new SignupRequest("Fasin4"+i,"fasin4@mashreq.com"+i,"Mashreq@123");
                             MvcResult mvcResult;
                             try {
                                 mvcResult = mockMvc.perform(MockMvcRequestBuilders

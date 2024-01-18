@@ -27,7 +27,6 @@ public class ConferenceRoomServiceImpl implements ConferenceRoomService {
         validateRequest(startTime, endTime);
         return conferenceRoomRepositoryAdapter.findAvailableRoomsForDay(startTime, endTime);
     }
-
     private void validateRequest(LocalDateTime startTime, LocalDateTime endTime) {
         BookingRequest bookingRequest = BookingRequest.builder()
                 .startTime(startTime)
@@ -36,12 +35,6 @@ public class ConferenceRoomServiceImpl implements ConferenceRoomService {
         Errors errors = new BeanPropertyBindingResult(bookingRequest, "bookingRequest");
         bookingValidator.validate(bookingRequest,errors);
     }
-
-    @Override
-    public ConferenceRoomReq getRoomById(Long roomId) {
-        return null;
-    }
-
     @Override
     public List<ConferenceRoomRes> getAllRooms() {
         return conferenceRoomRepositoryAdapter.findAll();

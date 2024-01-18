@@ -24,11 +24,6 @@ public class BookingServiceImpl implements BookingService {
     private final ConferenceRoomRepository conferenceRoomRepository;
 
     @Override
-    public boolean isBookingAllowed(Long roomId, LocalDateTime startTime, LocalDateTime endTime, int numberOfPeople) {
-        return bookingRepositoryAdapter.hasOverlappingBookings(roomId,startTime,endTime);
-    }
-
-    @Override
     public BookingResponse createBooking(Long roomId, BookingRequest bookingRequest) {
         ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
         validateBookingRequest(bookingRequest.numOfPeople(), room);

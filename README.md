@@ -15,16 +15,16 @@ Conference room booking service for company’s internal use.
      - Token will be populated to all other API Authorization headers.
 - Below API's are available to fulfil the current scope
      - **Swagger** http://localhost:8080/api/swagger-ui/index.html
+     - **H2 Database** - http://localhost:8080/api/h2-console/login.jsp?jsessionid=4a94a0d8abc10686f675278a2184fa59
 
-##### Technologies and design pattern integrated in the service
-- Hexagonal Pattern
+##### Technologies integrated in the service
 - JWT Authentication using Spring security.
 - Rate limiter using resiliency4j
 - Mock DB test cases
-- Swagger;
+- Swagger
 - Java 17
 - Maven
-- H2 Database
+- H2
 - Liquibase
 ### Project Structure
 Project is built using **Hexagonal** design pattern.
