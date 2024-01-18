@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.mashreq.conference","com.mashreq.conference.persistence.entity"}) // Adjust the package path
+@ComponentScan(basePackages = {"com.mashreq.conference","com.mashreq.conference.persistence.entity"})
 public class ConferenceRoomServiceApplication {
 
 	public static void main(String[] args) {

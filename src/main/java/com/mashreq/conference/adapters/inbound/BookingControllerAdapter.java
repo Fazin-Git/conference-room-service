@@ -35,7 +35,7 @@ public class BookingControllerAdapter implements BookingController {
     @Override
     @Operation(summary = "Book room by passing room id")
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
-    @PostMapping("/{roomId}/book-room")
+    @PostMapping("/{roomId}/book")
     public ResponseEntity<Response<BookingResponse>> bookRoomById(@PathVariable String roomId, @Valid @RequestBody BookingRequest bookingRequest) {
         return ResponseEntity.ok()
                 .body(Response.<BookingResponse>builder()
@@ -48,7 +48,7 @@ public class BookingControllerAdapter implements BookingController {
     @Override
     @Operation(summary = "Find and book room by number of people")
     @ApiResponse(responseCode = "200", description = "Room booked successfully.", content = @Content(mediaType = "application/json"))
-    @PostMapping("/book-room")
+    @PostMapping("/book")
     public ResponseEntity<Response<BookingResponse>> bookRoomByNumberOfParticipants(@Valid @RequestBody BookingRequest bookingRequest) {
         return ResponseEntity.ok()
                 .body(Response.<BookingResponse>builder()

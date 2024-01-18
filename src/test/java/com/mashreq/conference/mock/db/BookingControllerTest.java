@@ -38,7 +38,7 @@ class BookingControllerTest extends BaseControllerTest{
         userService.signup(new SignupRequest("Fasin6","fasin6@mashreq.com","12345"));
         LoginResponse login = userService.login(new LoginRequest("fasin6@mashreq.com", "12345"));
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                .post(String.format("/conference-rooms/%s/book-room", 2))
+                .post(String.format("/conference-rooms/%s/book", 2))
                 .content(objectMapper.writeValueAsString(bookingRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + login.token())
@@ -61,7 +61,7 @@ class BookingControllerTest extends BaseControllerTest{
         userService.signup(new SignupRequest("Fasin2","fasin2@mashreq.com","12345"));
         LoginResponse login = userService.login(new LoginRequest("fasin2@mashreq.com", "12345"));
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
-                .post("/conference-rooms/book-room")
+                .post("/conference-rooms/book")
                 .content(objectMapper.writeValueAsString(bookingRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + login.token())

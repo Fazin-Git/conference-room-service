@@ -39,13 +39,13 @@ public class LoginControllerAdapter implements LoginController {
 
     @Override
     @Operation(summary = "Signup to Application")
-    @ApiResponse(responseCode = "200", description = "Signup successful.", content = @Content(mediaType = "application/json"))
+    @ApiResponse(responseCode = "200", description = "Sign-up successful.", content = @Content(mediaType = "application/json"))
     @PostMapping("/sign-up")
     public ResponseEntity<Response<String>> signup(@RequestBody SignupRequest signupRequest) {
          userService.signup(signupRequest);
         return ResponseEntity.ok()
                 .body(Response.<String>builder()
-                        .message("Login successful.")
+                        .message("Sign-up successful.")
                         .status(ResponseStatus.SUCCESS)
                         .build());
     }
