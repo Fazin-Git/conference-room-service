@@ -43,3 +43,10 @@ maintenance:
       end: "13:15"
     - start: "17:00"
       end: "17:15"
+resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        limit-for-period: 3
+        limit-refresh-period: 1s
+        timeout-duration: 500ms

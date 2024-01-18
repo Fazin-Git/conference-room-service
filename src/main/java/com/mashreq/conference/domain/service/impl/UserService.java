@@ -12,6 +12,7 @@ import com.mashreq.conference.infra.exceptions.ConferenceRoomErrorCode;
 import com.mashreq.conference.infra.exceptions.ConferenceRoomException;
 import com.mashreq.conference.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -19,16 +20,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
   private final UserRepository repository;
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
 
+  @RateLimiter(name = "default")
   @Transactional
   public void signup(SignupRequest request) {
     String email = request.email();
@@ -41,6 +46,7 @@ public class UserService {
     user.setUsername(request.name());
     user.setEmail(email);
     user.setPassword(hashedPassword);
+    log.info("Sign-up");
     repository.save(user);
   }
 
