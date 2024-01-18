@@ -28,21 +28,21 @@ public class BookingValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         BookingRequest bookingRequest = (BookingRequest) target;
-        if (bookingRequest.getStartTime().toLocalDate().isAfter(LocalDate.now()) ||
-                bookingRequest.getStartTime().toLocalDate().isBefore(LocalDate.now())) {
+        if (bookingRequest.startTime().toLocalDate().isAfter(LocalDate.now()) ||
+                bookingRequest.startTime().toLocalDate().isBefore(LocalDate.now())) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_INVALID_BOOKING_DATE);
         }
 
-        if (bookingRequest.getEndTime().isBefore(LocalDateTime.now())){
+        if (bookingRequest.endTime().isBefore(LocalDateTime.now())){
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_PAST_TIME_NOT_ALLOWED);
         }
 
-        if (bookingRequest.getStartTime().getMinute() % 15 != 0 || bookingRequest.getEndTime().getMinute() % 15 != 0) {
+        if (bookingRequest.startTime().getMinute() % 15 != 0 || bookingRequest.endTime().getMinute() % 15 != 0) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_INTERVAL_NOT_ALLOWED);
         }
 
         // Validate maintenance time
-        if(validateMaintenanceTime(bookingRequest.getStartTime(), bookingRequest.getEndTime())){
+        if(validateMaintenanceTime(bookingRequest.startTime(), bookingRequest.endTime())){
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_UNDER_MAINTENANCE_TIME);
         }
     }

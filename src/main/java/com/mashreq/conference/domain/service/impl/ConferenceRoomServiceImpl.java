@@ -29,11 +29,12 @@ public class ConferenceRoomServiceImpl implements ConferenceRoomService {
     }
 
     private void validateRequest(LocalDateTime startTime, LocalDateTime endTime) {
-        BookingRequest validRequest = new BookingRequest();
-        validRequest.setStartTime(startTime);
-        validRequest.setEndTime(endTime);
-        Errors errors = new BeanPropertyBindingResult(validRequest, "validRequest");
-        bookingValidator.validate(validRequest,errors);
+        BookingRequest bookingRequest = BookingRequest.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .build();
+        Errors errors = new BeanPropertyBindingResult(bookingRequest, "bookingRequest");
+        bookingValidator.validate(bookingRequest,errors);
     }
 
     @Override

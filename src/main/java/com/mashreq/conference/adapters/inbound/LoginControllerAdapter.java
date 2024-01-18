@@ -32,7 +32,7 @@ public class LoginControllerAdapter implements LoginController {
         return ResponseEntity.ok()
                 .body(Response.<LoginResponse>builder()
                         .data(userService.login(loginRequest))
-                        .message("Room booked successfully.")
+                        .message("Login successful.")
                         .status(ResponseStatus.SUCCESS)
                         .build());
     }

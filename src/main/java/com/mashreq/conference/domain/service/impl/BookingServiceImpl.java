@@ -31,13 +31,13 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public BookingResponse createBooking(Long roomId, BookingRequest bookingRequest) {
         ConferenceRoom room = conferenceRoomRepository.findById(roomId).orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
-        validateBookingRequest(bookingRequest.getNumOfPeople(), room);
+        validateBookingRequest(bookingRequest.numOfPeople(), room);
         checkForOverlappedBooking(roomId, bookingRequest);
         return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
     }
 
     private void checkForOverlappedBooking(Long roomId, BookingRequest bookingRequest) {
-        boolean isBookingOverlapped = bookingRepositoryAdapter.hasOverlappingBookings(roomId, bookingRequest.getStartTime(), bookingRequest.getEndTime());
+        boolean isBookingOverlapped = bookingRepositoryAdapter.hasOverlappingBookings(roomId, bookingRequest.startTime(), bookingRequest.endTime());
         log.info("Overlap booking status : {} for room id {}",isBookingOverlapped, roomId);
         if (isBookingOverlapped) {
             throw new ConferenceRoomException(ConferenceRoomErrorCode.E_BOOKING_OVERLAPPED);
@@ -46,9 +46,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingResponse bookRoomByNumberOfParticipants(BookingRequest bookingRequest) {
-        ConferenceRoom room = conferenceRoomRepository.findAllByMaxCapacityGreaterThanEqualOrderByMaxCapacityAsc(bookingRequest.getNumOfPeople())
+        ConferenceRoom room = conferenceRoomRepository.findAllByMaxCapacityGreaterThanEqualOrderByMaxCapacityAsc(bookingRequest.numOfPeople())
                 .stream().findFirst().orElseThrow(() -> new ConferenceRoomException(ConferenceRoomErrorCode.E_MEETING_ROOM_NOT_FOUND));
-        validateBookingRequest(bookingRequest.getNumOfPeople(), room);
+        validateBookingRequest(bookingRequest.numOfPeople(), room);
         checkForOverlappedBooking(room.getId(), bookingRequest);
         return bookingRepositoryAdapter.saveBooking(setBookingEntity(bookingRequest, room));
     }
@@ -57,16 +57,15 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingResponse> getAllBookings() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime nextDayDateTime = currentDateTime.plusDays(1);
-        //This approach eliminates the date truncation and directly compares the timestamp range.
         return bookingRepositoryAdapter.findAllBookingsForToday(currentDateTime,nextDayDateTime);
     }
 
     private Booking setBookingEntity(BookingRequest bookingRequest, ConferenceRoom room) {
         Booking booking = new Booking();
         booking.setConferenceRoom(room);
-        booking.setStartTime(bookingRequest.getStartTime());
-        booking.setEndTime(bookingRequest.getEndTime());
-        booking.setNumOfPeople(bookingRequest.getNumOfPeople());
+        booking.setStartTime(bookingRequest.startTime());
+        booking.setEndTime(bookingRequest.endTime());
+        booking.setNumOfPeople(bookingRequest.numOfPeople());
         return booking;
     }
 

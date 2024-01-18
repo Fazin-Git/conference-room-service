@@ -17,6 +17,7 @@ public interface ConferenceRoomRepository extends JpaRepository<ConferenceRoom, 
             "WHERE NOT EXISTS (" +
             "   SELECT 1 FROM Booking b2 " +
             "   WHERE b2.conferenceRoom = cr " +
+            "   AND CAST(:startTime AS DATE) = CAST(b2.startTime AS DATE) " +
             "   AND :startTime < b2.endTime AND :endTime > b2.startTime" +
             ")")
     List<ConferenceRoom> findAvailableRoomsForDay(

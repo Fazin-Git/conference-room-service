@@ -43,13 +43,9 @@ class BaseControllerTest {
     @SneakyThrows
     @Order(1)
     void testBookingSuccess() {
-        BookingRequest bookingRequest = new BookingRequest();
-        bookingRequest.setNumOfPeople(7);
-        bookingRequest.setStartTime(LocalDateTime.now().withMinute(15));
-        bookingRequest.setEndTime(LocalDateTime.now().withMinute(30));
-        bookingRequest.setRoomId(2L);
-        userService.signup(new SignupRequest("Fasin","fasinmu@mashreq.com","12345"));
-        LoginResponse login = userService.login(new LoginRequest("fasinmu@mashreq.com", "12345"));
+        BookingRequest bookingRequest = new BookingRequest(2L,LocalDateTime.now().withMinute(15),LocalDateTime.now().withMinute(30),7);
+        userService.signup(new SignupRequest("Fasin","fasin1@mashreq.com","12345"));
+        LoginResponse login = userService.login(new LoginRequest("fasin1@mashreq.com", "12345"));
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
                 .post(String.format("/conference-rooms/%s/book-room", 2))
                 .content(objectMapper.writeValueAsString(bookingRequest))

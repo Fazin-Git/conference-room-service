@@ -3,6 +3,7 @@ package com.mashreq.conference.adapters.outbound.persistence;
 import com.mashreq.conference.domain.model.ConferenceRoomRes;
 import com.mashreq.conference.persistence.entity.ConferenceRoom;
 import com.mashreq.conference.persistence.repository.ConferenceRoomRepository;
+import com.mashreq.conference.ports.outbound.IConferenceRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ConferenceRoomRepositoryAdapter implements com.mashreq.conference.ports.outbound.ConferenceRoomRepository {
+public class ConferenceRoomRepositoryAdapter implements IConferenceRoomRepository {
 
     private final ConferenceRoomRepository conferenceRoomRepository;
 

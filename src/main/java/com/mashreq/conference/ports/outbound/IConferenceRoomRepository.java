@@ -5,7 +5,7 @@ import com.mashreq.conference.domain.model.ConferenceRoomRes;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ConferenceRoomRepository {
-    // ... (unchanged)
+public interface IConferenceRoomRepository {
+
     List<ConferenceRoomRes> findAvailableRoomsForDay(LocalDateTime startTime, LocalDateTime endTime);
 }
