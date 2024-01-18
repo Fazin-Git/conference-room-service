@@ -1,6 +1,9 @@
 package com.mashreq.conference.adapters.inbound;
 
+import com.mashreq.conference.domain.model.BookingResponse;
 import com.mashreq.conference.domain.model.ConferenceRoomRes;
+import com.mashreq.conference.domain.model.Response;
+import com.mashreq.conference.domain.model.ResponseStatus;
 import com.mashreq.conference.domain.service.ConferenceRoomService;
 import com.mashreq.conference.ports.inbound.ConferenceRoomController;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,18 +29,26 @@ public class ConferenceRoomControllerAdapter implements ConferenceRoomController
     @Operation(summary = "Get all available conference room for the time frame")
     @ApiResponse(responseCode = "200", description = "All available room's fetched successfully.", content = @Content(mediaType = "application/json"))
     @GetMapping("/available")
-    public ResponseEntity<List<ConferenceRoomRes>> getAvailableRooms(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+    public ResponseEntity<Response<List<ConferenceRoomRes>>> getAvailableRooms(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
                                                                      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
-        List<ConferenceRoomRes> rooms = conferenceRoomService.getAvailableRooms(startTime,endTime);
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(Response.<List<ConferenceRoomRes>>builder()
+                        .data(conferenceRoomService.getAvailableRooms(startTime,endTime))
+                        .message("Available rooms fetched successfully.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
     }
 
     @Override
     @Operation(summary = "Get all conference rooms")
     @ApiResponse(responseCode = "200", description = "conference room fetched successfully.", content = @Content(mediaType = "application/json"))
     @GetMapping
-    public ResponseEntity<List<ConferenceRoomRes>> getAllRooms() {
-        List<ConferenceRoomRes> rooms = conferenceRoomService.getAllRooms();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    public ResponseEntity<Response<List<ConferenceRoomRes>>> getAllRooms() {
+        return ResponseEntity.ok()
+                .body(Response.<List<ConferenceRoomRes>>builder()
+                        .data(conferenceRoomService.getAllRooms())
+                        .message("All rooms fetched successfully.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
     }
 }

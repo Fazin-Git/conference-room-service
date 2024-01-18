@@ -12,7 +12,7 @@ import java.util.List;
 public interface BookingController {
     ResponseEntity<Response<BookingResponse>> bookRoomById(String roomId, BookingRequest bookingRequest);
 
-    ResponseEntity<List<BookingResponse>> getAllBookings();
+    ResponseEntity<Response<List<BookingResponse>>> getAllBookings();
 
     ResponseEntity<Response<BookingResponse>> bookRoomByNumberOfParticipants(BookingRequest bookingRequest);
 

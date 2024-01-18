@@ -41,8 +41,12 @@ public class LoginControllerAdapter implements LoginController {
     @Operation(summary = "Signup to Application")
     @ApiResponse(responseCode = "200", description = "Signup successful.", content = @Content(mediaType = "application/json"))
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signup(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<Response<String>> signup(@RequestBody SignupRequest signupRequest) {
          userService.signup(signupRequest);
-         return new ResponseEntity<>("success", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(Response.<String>builder()
+                        .message("Login successful.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
     }
 }

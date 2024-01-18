@@ -16,5 +16,5 @@ public interface LoginController {
 
     ResponseEntity<Response<LoginResponse>> login(@RequestBody LoginRequest loginRequest);
 
-    ResponseEntity<String> signup(SignupRequest signupRequest);
+    ResponseEntity<Response<String>> signup(SignupRequest signupRequest);
 }

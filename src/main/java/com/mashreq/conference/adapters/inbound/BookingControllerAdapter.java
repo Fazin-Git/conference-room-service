@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +62,12 @@ public class BookingControllerAdapter implements BookingController {
     @Operation(summary = "Get all bookings for the day")
     @ApiResponse(responseCode = "200", description = "All bookings fetched successfully.", content = @Content(mediaType = "application/json"))
     @GetMapping("/current-bookings")
-    public ResponseEntity<List<BookingResponse>> getAllBookings() {
-        return new ResponseEntity<>(bookingService.getAllBookings(), HttpStatus.OK);
+    public ResponseEntity<Response<List<BookingResponse>>> getAllBookings() {
+        return ResponseEntity.ok()
+                .body(Response.<List<BookingResponse>>builder()
+                        .data(bookingService.getAllBookings())
+                        .message("All bookings fetched successfully.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
     }
 }
