@@ -77,5 +77,4 @@ src
    |   |   |   |   |   |   |-- outbound
    |   |   |   |   |   |   |   |-- IBookingRepository.java
 ```
-### Project Structure
 
