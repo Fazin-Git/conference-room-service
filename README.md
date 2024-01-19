@@ -1,5 +1,6 @@
 # conference-room-service
 Conference room booking service for company’s internal use.
+Candidate : Fasin Muhammed
 ##### Steps to run the application
 - Checkout code from https://github.com/Fazin-Git/conference-room-service
 - Install Openjdk version 17.0.6
