@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
 
+
 @ExtendWith(MockitoExtension.class)
 class BookingControllerTest extends BaseControllerTest{
     @Autowired
@@ -99,5 +100,23 @@ class BookingControllerTest extends BaseControllerTest{
 
         Response<String> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Response.class);
         Assertions.assertThat(response.getStatus()).isEqualTo(ResponseStatus.SUCCESS);
+    }
+    @Test
+    @DisplayName("Create booking by passing wrong start and end time and throw exception ")
+    @Order(5)
+    @SneakyThrows
+    void testBookingWithException() {
+        BookingRequest bookingRequest = new BookingRequest(2L,LocalDateTime.now().plusHours(2).withMinute(15),LocalDateTime.now().plusHours(1).withMinute(30),7);
+        userService.signup(new SignupRequest("Fasin6","1fasin6@mashreq.com","12345"));
+        LoginResponse login = userService.login(new LoginRequest("1fasin6@mashreq.com", "12345"));
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                .post(String.format("/conference-rooms/%s/book", 2))
+                .content(objectMapper.writeValueAsString(bookingRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + login.token())
+                .accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        Response<String> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Response.class);
+        Assertions.assertThat(response.getStatus()).isEqualTo(ResponseStatus.ERROR);
     }
 }

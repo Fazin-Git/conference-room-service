@@ -48,13 +48,5 @@ public static class MaintenanceSlot {
     }
 }
 
-// Custom converter for LocalTime
-@Component
-public static class LocalTimeConverter implements Converter<String, LocalTime> {
-    @Override
-    public LocalTime convert(String source) {
-        return LocalTime.parse(source);
-    }
-}
 
 }

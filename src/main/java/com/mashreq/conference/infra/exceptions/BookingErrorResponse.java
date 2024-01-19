@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class BookingErrorResponse implements Serializable {
     boolean hasError;
     private ResponseStatus status;

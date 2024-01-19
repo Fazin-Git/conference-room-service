@@ -19,7 +19,7 @@
 		<jacoco.version>0.8.10</jacoco.version>
 		<coverage.exclusions>
 			**/com/mashreq/conference/infra/**/*,
-			**/com/mashreq/conference/persistence/**/*,
+			**/com/mashreq/conference/persistence/entity/*,
 		</coverage.exclusions>
 	</properties>
 	<dependencies>
