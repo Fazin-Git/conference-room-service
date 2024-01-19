@@ -16,6 +16,11 @@
 	<properties>
 		<java.version>17</java.version>
 		<jwt.version>0.12.3</jwt.version>
+		<jacoco.version>0.8.10</jacoco.version>
+		<coverage.exclusions>
+			**/com/mashreq/conference/infra/**/*,
+			**/com/mashreq/conference/persistence/**/*,
+		</coverage.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -112,6 +117,31 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>${coverage.exclusions}</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
