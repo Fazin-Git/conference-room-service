@@ -70,4 +70,17 @@ public class BookingControllerAdapter implements BookingController {
                         .status(ResponseStatus.SUCCESS)
                         .build());
     }
+
+    @Override
+    @Operation(summary = "Get all bookings of a conference room for the day")
+    @ApiResponse(responseCode = "200", description = "All bookings of room fetched successfully.", content = @Content(mediaType = "application/json"))
+    @GetMapping("/{roomId}/bookings")
+    public ResponseEntity<Response<List<BookingResponse>>> getAllBookingsOfRoom(@PathVariable String roomId) {
+        return ResponseEntity.ok()
+                .body(Response.<List<BookingResponse>>builder()
+                        .data(bookingService.getAllBookingsOfRoom(roomId))
+                        .message("All bookings of room fetched successfully.")
+                        .status(ResponseStatus.SUCCESS)
+                        .build());
+    }
 }

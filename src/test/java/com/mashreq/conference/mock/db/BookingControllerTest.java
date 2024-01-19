@@ -84,4 +84,20 @@ class BookingControllerTest extends BaseControllerTest{
         Response<String> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Response.class);
         Assertions.assertThat(response.getStatus()).isEqualTo(ResponseStatus.SUCCESS);
     }
+
+    @Test
+    @DisplayName("Get all current bookings by room id")
+    @SneakyThrows
+    @Order(4)
+    void testGetAllBookingsByRoomId() {
+        userService.signup(new SignupRequest("Fasin4","fasin4@mashreq.com","12345"));
+        LoginResponse login = userService.login(new LoginRequest("fasin4@mashreq.com", "12345"));
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders
+                .get(String.format("/conference-rooms/%s/bookings", 2))
+                .header("Authorization", "Bearer " + login.token())
+                .accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        Response<String> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Response.class);
+        Assertions.assertThat(response.getStatus()).isEqualTo(ResponseStatus.SUCCESS);
+    }
 }

@@ -55,6 +55,11 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepositoryAdapter.findAllBookingsForToday(currentDateTime,nextDayDateTime);
     }
 
+    @Override
+    public List<BookingResponse> getAllBookingsOfRoom(String roomId) {
+        return bookingRepositoryAdapter.getAllBookingsOfRoom(LocalDateTime.now(),roomId);
+    }
+
     private Booking setBookingEntity(BookingRequest bookingRequest, ConferenceRoom room) {
         Booking booking = new Booking();
         booking.setConferenceRoom(room);

@@ -80,6 +80,44 @@
 			"response": []
 		},
 		{
+			"name": "Current bookings by room",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/conference-rooms/3/bookings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"conference-rooms",
+						"3",
+						"bookings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Available rooms by time frame",
 			"request": {
 				"auth": {
@@ -149,7 +187,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"startTime\": \"2024-01-18T20:15:00\",\r\n  \"endTime\": \"2024-01-18T20:30:00\",\r\n  \"numOfPeople\": 7\r\n}",
+					"raw": "{\r\n  \"startTime\": \"2024-01-19T20:15:00\",\r\n  \"endTime\": \"2024-01-19T20:30:00\",\r\n  \"numOfPeople\": 7\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -196,7 +234,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"startTime\": \"2024-01-18T20:15:00\",\r\n  \"endTime\": \"2024-01-18T20:30:00\",\r\n  \"numOfPeople\": 12\r\n}",
+					"raw": "{\r\n  \"startTime\": \"2024-01-19T20:15:00\",\r\n  \"endTime\": \"2024-01-19T20:30:00\",\r\n  \"numOfPeople\": 12\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

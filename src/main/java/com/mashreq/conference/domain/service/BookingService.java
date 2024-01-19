@@ -12,5 +12,7 @@ public interface BookingService {
 
     List<BookingResponse> getAllBookings();
 
+    List<BookingResponse> getAllBookingsOfRoom(String roomId);
+
     // Other methods
 }

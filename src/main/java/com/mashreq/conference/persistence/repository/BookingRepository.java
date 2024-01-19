@@ -33,4 +33,8 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
     List<Long> findBookedRoomIds(@Param("startTime") LocalDateTime startTime,
                                  @Param("endTime") LocalDateTime endTime);
 
+    @Query("SELECT b FROM Booking b " +
+            "WHERE b.conferenceRoom.id = :roomId")
+    List<Booking> findByRoomId(@Param("roomId") Long roomId);
+
 }

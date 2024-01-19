@@ -12,6 +12,7 @@ Conference room booking service for company’s internal use.
      - Does not contain whitespace
 - Step 2 - Use login API with same email and password.
      - Postman collection already have the scripts to copy the token from response to set the global variable {{token}}
+     - Please create a global variable {{token}} if variable is not created.(Some postman version will not import global variables.)
      - Token will be populated to all other API Authorization headers.
 - Below API's are available to fulfil the current scope
      - **Swagger** http://localhost:8080/api/swagger-ui/index.html

@@ -1,6 +1,5 @@
 package com.mashreq.conference.adapters.inbound;
 
-import com.mashreq.conference.domain.model.BookingResponse;
 import com.mashreq.conference.domain.model.ConferenceRoomRes;
 import com.mashreq.conference.domain.model.Response;
 import com.mashreq.conference.domain.model.ResponseStatus;
@@ -11,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
